@@ -62,7 +62,7 @@ class CarInterface(CarInterfaceBase):
       if 0x2AB in fingerprint[0]:
         ret.spFlags |= HyundaiFlagsSP.SP_ENHANCED_SCC.value
 
-    ret.steerActuatorDelay = 0.1  # Default delay
+    ret.steerActuatorDelay = 0.42  # Default delay
     ret.steerLimitTimer = 0.4
     tire_stiffness_factor = 1.
     CarInterfaceBase.configure_torque_tune(candidate, ret.lateralTuning)
@@ -76,7 +76,7 @@ class CarInterface(CarInterfaceBase):
     elif candidate in (CAR.SONATA, CAR.SONATA_HYBRID):
       ret.mass = 1513. + STD_CARGO_KG
       ret.wheelbase = 2.84
-      ret.steerRatio = 13.27 * 1.15   # 15% higher at the center seems reasonable
+      ret.steerRatio = 12.35 * 1.15   # 15% higher at the center seems reasonable
       tire_stiffness_factor = 0.65
     elif candidate == CAR.SONATA_LF:
       ret.mass = 4497. * CV.LB_TO_KG

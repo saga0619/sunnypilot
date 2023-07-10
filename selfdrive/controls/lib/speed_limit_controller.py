@@ -58,7 +58,7 @@ class SpeedLimitResolver():
     nav_only = 5
     nav_priority = 6
 
-  def __init__(self, policy=Policy.nav_priority):
+  def __init__(self, policy=Policy.car_state_only):
     self._limit_solutions = {}  # Store for speed limit solutions from different sources
     self._distance_solutions = {}  # Store for distance to current speed limit start for different sources
     self._v_ego = 0.
