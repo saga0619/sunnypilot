@@ -163,6 +163,7 @@ class Controls:
     self.steer_limited = False
     self.desired_curvature = 0.0
     self.experimental_mode = False
+    self.driving_mode_enabled = False
     self.personality = self.read_personality_param()
     self.v_cruise_helper = VCruiseHelper(self.CP)
     self.recalibrating_seen = False
@@ -751,6 +752,17 @@ class Controls:
           self.params.put_nonblocking('LongitudinalPersonality', str(self.personality))
         self.experimental_mode_update = False
 
+    if self.CP.openpilotLongitudinalControl:
+      if self.driving_mode_enabled:
+        if CS.drivingMode != self.CS_prev.drivingMode:
+          if CS.drivingMode == 0:
+            self.params.put_nonblocking('AccelPersonality', str(custom.AccxPersonality.normal))
+          elif CS.drivingMode == 1:
+            self.params.put_nonblocking('AccelPersonality', str(custom.AccxPersonality.sport))
+          elif CS.drivingMode == 3:
+            self.params.put_nonblocking('AccelPersonality', str(custom.AccxPersonality.eco))
+
+
     return CC, lac_log
 
   def publish_logs(self, CS, start_time, CC, lac_log):
@@ -976,6 +988,7 @@ class Controls:
       self.is_metric = self.params.get_bool("IsMetric")
       self.experimental_mode = self.params.get_bool("ExperimentalMode") and (self.CP.openpilotLongitudinalControl or
                                                                              (not self.CP.pcmCruiseSpeed and self.custom_stock_planner_speed))
+      self.driving_mode_enabled = self.params.get_bool("HyundaiDrivingMode")
       self.personality = self.read_personality_param()
       self.dynamic_personality = self.params.get_bool("DynamicPersonality")
       self.accel_personality = self.read_accel_personality_param()
