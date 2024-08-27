@@ -225,7 +225,7 @@ struct CarState {
   gearShifter @14 :GearShifter;
 
   # drive mode
-  drivingMode @0 :UInt32;
+  drivingMode @62 :UInt32;
 
   # button presses
   buttonEvents @11 :List(ButtonEvent);
