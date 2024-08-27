@@ -224,6 +224,9 @@ struct CarState {
   # gear
   gearShifter @14 :GearShifter;
 
+  # drive mode
+  drivingMode @0 :UInt32;
+
   # button presses
   buttonEvents @11 :List(ButtonEvent);
   leftBlinker @20 :Bool;
