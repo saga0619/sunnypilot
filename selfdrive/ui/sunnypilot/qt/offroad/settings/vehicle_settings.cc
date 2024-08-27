@@ -120,6 +120,14 @@ SPVehiclesTogglesPanel::SPVehiclesTogglesPanel(VehiclePanel *parent) : ListWidge
   hyundaiCruiseMainDefault->setConfirmation(true, false);
   addItem(hyundaiCruiseMainDefault);
 
+  hyundaiDrivingMode = new ParamControlSP(
+    "HyundaiDrivingMode",
+    tr("HKG: Enable Driving Mode Selection"),
+    tr(""),
+    "../assets/offroad/icon_blank.png");
+  hyundaiDrivingMode->setConfirmation(true, false);
+  addItem(hyundaiDrivingMode);
+
   // Subaru
   addItem(new LabelControlSP(tr("Subaru")));
   auto subaruManualParkingBrakeSng = new ParamControlSP(

@@ -73,6 +73,7 @@ def manager_init() -> None:
     ("HasAcceptedTermsSP", "0"),
     ("HideVEgoUi", "0"),
     ("HyundaiCruiseMainDefault", "0"),
+    ("hyundaiDrivingMode", "0"),
     ("HyundaiRadarTracksAvailable", "0"),
     ("HyundaiRadarTracksAvailableCache", "0"),
     ("LastSpeedLimitSignTap", "0"),

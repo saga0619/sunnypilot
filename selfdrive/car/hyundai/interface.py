@@ -230,6 +230,9 @@ class CarInterface(CarInterfaceBase):
                                 self.CS.params_list.hyundai_cruise_main_default
       self.CS.mainEnabled = True if can_cruise_main_default or self.CP.carFingerprint in CANFD_CAR else False
 
+    # if not self.CP.flags & HyundaiFlags.CANFD:
+    self.CS.driving_mode_button_enabled = self.CS.params_list.hyundai_driving_mode_enabled
+
     ret = self.CS.update(self.cp, self.cp_cam)
 
     self.CS.button_events = [
