@@ -920,11 +920,11 @@ class Controls:
     if self.driving_mode_enabled:
       if CS.drivingMode != self.CS_prev.drivingMode:
         if CS.drivingMode == 0:
-          controlsStateSP.accelPersonality = custom.AccelPersonality.normal
+          controlsStateSP.accelPersonality = custom.AccelerationPersonality.normal
         elif CS.drivingMode == 1:
-          controlsStateSP.accelPersonality = custom.AccelPersonality.sport
+          controlsStateSP.accelPersonality = custom.AccelerationPersonality.sport
         elif CS.drivingMode == 3:
-          controlsStateSP.accelPersonality = custom.AccelPersonality.eco
+          controlsStateSP.accelPersonality = custom.AccelerationPersonality.eco
     else:
       controlsStateSP.accelPersonality = self.accel_personality
     controlsStateSP.overtakingAccelerationAssist = self.overtaking_accel_engaged
