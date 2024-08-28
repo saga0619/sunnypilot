@@ -341,7 +341,7 @@ class CarState(CarStateBase):
       ("TCS13", 50),
       ("TCS15", 10),
       ("CLU11", 50),
-      ("CLU13", 10),
+      ("CLU13", 5),
       ("CLU15", 5),
       ("ESP12", 100),
       ("CGW1", 10),

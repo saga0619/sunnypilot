@@ -756,11 +756,11 @@ class Controls:
       if self.driving_mode_enabled:
         if CS.drivingMode != self.CS_prev.drivingMode:
           if CS.drivingMode == 0:
-            self.params.put_nonblocking('AccelPersonality', str(custom.AccxPersonality.normal))
+            self.params.put_nonblocking('AccelPersonality', str(custom.AccelPersonality.normal))
           elif CS.drivingMode == 1:
-            self.params.put_nonblocking('AccelPersonality', str(custom.AccxPersonality.sport))
+            self.params.put_nonblocking('AccelPersonality', str(custom.AccelPersonality.sport))
           elif CS.drivingMode == 3:
-            self.params.put_nonblocking('AccelPersonality', str(custom.AccxPersonality.eco))
+            self.params.put_nonblocking('AccelPersonality', str(custom.AccelPersonality.eco))
 
 
     return CC, lac_log
