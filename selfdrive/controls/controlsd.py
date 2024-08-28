@@ -752,6 +752,16 @@ class Controls:
           self.params.put_nonblocking('LongitudinalPersonality', str(self.personality))
         self.experimental_mode_update = False
 
+
+    if self.driving_mode_enabled:
+      if CS.drivingMode != self.CS_prev.drivingMode:
+        if CS.drivingMode == 0:
+          self.params.put_nonblocking('AccelPersonality', str(custom.AccelerationPersonality.normal))
+        elif CS.drivingMode == 1:
+          self.params.put_nonblocking('AccelPersonality', str(custom.AccelerationPersonality.sport))
+        elif CS.drivingMode == 3:
+          self.params.put_nonblocking('AccelPersonality', str(custom.AccelerationPersonality.eco))
+
     return CC, lac_log
 
   def publish_logs(self, CS, start_time, CC, lac_log):
@@ -916,17 +926,7 @@ class Controls:
     controlsStateSP.lateralState = lat_tuning
     controlsStateSP.personality = self.personality
     controlsStateSP.dynamicPersonality = self.dynamic_personality
-
-    if self.driving_mode_enabled:
-      if CS.drivingMode != self.CS_prev.drivingMode:
-        if CS.drivingMode == 0:
-          controlsStateSP.accelPersonality = custom.AccelerationPersonality.normal
-        elif CS.drivingMode == 1:
-          controlsStateSP.accelPersonality = custom.AccelerationPersonality.sport
-        elif CS.drivingMode == 3:
-          controlsStateSP.accelPersonality = custom.AccelerationPersonality.eco
-    else:
-      controlsStateSP.accelPersonality = self.accel_personality
+    controlsStateSP.accelPersonality = self.accel_personality
     controlsStateSP.overtakingAccelerationAssist = self.overtaking_accel_engaged
 
     if self.enable_nnff and lat_tuning == 'torque':
