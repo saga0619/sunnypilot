@@ -130,7 +130,7 @@ class CarState(CarStateBase):
       except KeyError:
         self.accel_signal_exists = False
 
-      if drivingMode != self.CS_prev.drivingMode:
+      if self.accel_signal_exists:
         if drivingMode == 0:
           self.accel_profile = AccelPersonality.normal
         elif drivingMode == 1:
