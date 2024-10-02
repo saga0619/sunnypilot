@@ -67,7 +67,7 @@ class CarState(CarStateBase):
 
     self.accel_profile = None
     self.accel_profile_prev = None
-    self.accel_signal_exists = False
+    self.hyundai_driving_mode_signal_exist = False
     self.hyundai_driving_mode = Params().get_bool("HyundaiDrivingMode")
 
   def get_main_enabled(self, ret) -> bool:
@@ -126,11 +126,11 @@ class CarState(CarStateBase):
       drivingMode = None
       try:
         drivingMode = cp.vl["CLU13"]["CF_Clu_DrivingModeSwi"]
-        self.accel_signal_exists = True
+        self.hyundai_driving_mode_signal_exist = True
       except KeyError:
-        self.accel_signal_exists = False
+        self.hyundai_driving_mode_signal_exist = False
 
-      if self.accel_signal_exists:
+      if self.hyundai_driving_mode_signal_exist:
         if drivingMode == 0:
           self.accel_profile = AccelPersonality.normal
         elif drivingMode == 1:
