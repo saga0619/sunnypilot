@@ -122,7 +122,7 @@ SPVehiclesTogglesPanel::SPVehiclesTogglesPanel(VehiclePanel *parent) : ListWidge
 
   auto hyundaiDrivingMode = new ParamControlSP(
     "HyundaiDrivingMode",
-    tr("HKG: Enable HKG Driving Mode Button"),
+    tr("HKG CAN: Enable HKG Driving Mode Button"),
     tr("Sunnypilot will link the Acceleration Personality to the car's physical drive mode selector. \nReboot Required."),
     "../assets/offroad/icon_blank.png");
   hyundaiDrivingMode->setConfirmation(true, false);
