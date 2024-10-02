@@ -2,10 +2,11 @@ from collections import deque
 import copy
 import math
 
-from cereal import car
+from cereal import car, custom
 from openpilot.common.conversions import Conversions as CV
 from opendbc.can.parser import CANParser
 from opendbc.can.can_define import CANDefine
+from openpilot.common.params import Params
 from openpilot.selfdrive.car.hyundai.hyundaicanfd import CanBus
 from openpilot.selfdrive.car.hyundai.values import HyundaiFlags, HyundaiFlagsSP, CAR, DBC, CAN_GEARS, CAMERA_SCC_CAR, \
                                                    CANFD_CAR, NON_SCC_CAR, NON_SCC_FCA_CAR, NON_SCC_RADAR_FCA_CAR, \
@@ -15,6 +16,8 @@ from openpilot.selfdrive.car.interfaces import CarStateBase
 PREV_BUTTON_SAMPLES = 8
 CLUSTER_SAMPLE_RATE = 20  # frames
 STANDSTILL_THRESHOLD = 12 * 0.03125 * CV.KPH_TO_MS
+
+AccelPersonality = custom.AccelPersonality
 
 
 class CarState(CarStateBase):
@@ -61,6 +64,11 @@ class CarState(CarStateBase):
     self.escc_cmd_act = 0
     self.escc_aeb_dec_cmd = 0
     self._speed_limit_clu = 0
+
+    self.accel_profile = None
+    self.accel_profile_prev = None
+    self.accel_signal_exists = False
+    self.hyundai_driving_mode = Params().get_bool("HyundaiDrivingMode")
 
   def get_main_enabled(self, ret) -> bool:
     if self.prev_main_buttons != 1 and self.main_buttons[-1] == 1:
@@ -114,7 +122,26 @@ class CarState(CarStateBase):
     ret.steeringPressed = self.update_steering_pressed(abs(ret.steeringTorque) > self.params.STEER_THRESHOLD, 5)
     ret.steerFaultTemporary = cp.vl["MDPS12"]["CF_Mdps_ToiUnavail"] != 0 or cp.vl["MDPS12"]["CF_Mdps_ToiFlt"] != 0
 
-    ret.drivingMode = cp.vl["CLU13"]["CF_Clu_DrivingModeSwi"]
+    if self.hyundai_driving_mode:
+      drivingMode = None
+      try:
+        drivingMode = cp.vl["CLU13"]["CF_Clu_DrivingModeSwi"]
+        self.accel_signal_exists = True
+      except KeyError:
+        self.accel_signal_exists = False
+
+      if drivingMode != self.CS_prev.drivingMode:
+        if drivingMode == 0:
+          self.accel_profile = AccelPersonality.normal
+        elif drivingMode == 1:
+          self.accel_profile = AccelPersonality.sport
+        elif drivingMode == 3:
+          self.accel_profile = AccelPersonality.eco
+
+      if self.accel_profile != self.accel_profile_prev:
+        Params().put_nonblocking('AccelPersonality', str(self.accel_profile))
+        self.accel_profile_prev = self.accel_profile
+
     # cruise state
     if self.CP.openpilotLongitudinalControl:
       # These are not used for engage/disengage since openpilot keeps track of state using the buttons
