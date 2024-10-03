@@ -17,7 +17,7 @@ PREV_BUTTON_SAMPLES = 8
 CLUSTER_SAMPLE_RATE = 20  # frames
 STANDSTILL_THRESHOLD = 12 * 0.03125 * CV.KPH_TO_MS
 
-AccelPersonality = custom.AccelPersonality
+AccelPersonality = custom.AccelerationPersonality
 
 
 class CarState(CarStateBase):
