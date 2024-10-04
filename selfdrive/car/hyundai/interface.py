@@ -302,11 +302,11 @@ class CarInterface(CarInterfaceBase):
     # Handle drive mode changes by hkg drive mode button
     if self.CS.hyundai_driving_mode:
       if self.CS.accel_profile != self.CS.accel_profile_prev:
-        if self.CS.accel_profile == custom.AccelPersonalityType.normal:
+        if self.CS.accel_profile == custom.AccelPersonality.normal:
           events.add(car.CarEvent.EventName.accelProfileNormal)
-        elif self.CS.accel_profile == custom.AccelPersonalityType.eco:
+        elif self.CS.accel_profile == custom.AccelPersonality.eco:
           events.add(car.CarEvent.EventName.accelProfileEco)
-        elif self.CS.accel_profile == custom.AccelPersonalityType.sport:
+        elif self.CS.accel_profile == custom.AccelPersonality.sport:
           events.add(car.CarEvent.EventName.accelProfileSport)
 
     ret.customStockLong = self.update_custom_stock_long()
