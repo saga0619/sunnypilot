@@ -131,6 +131,7 @@ class CarState(CarStateBase):
         self.hyundai_driving_mode_signal_exist = False
 
       if self.hyundai_driving_mode_signal_exist:
+        self.accel_profile_prev = self.accel_profile
         if drivingMode == 0:
           self.accel_profile = AccelPersonality.normal
         elif drivingMode == 1:
@@ -140,7 +141,6 @@ class CarState(CarStateBase):
 
       if self.accel_profile != self.accel_profile_prev:
         Params().put_nonblocking('AccelPersonality', str(self.accel_profile))
-        self.accel_profile_prev = self.accel_profile
 
     # cruise state
     if self.CP.openpilotLongitudinalControl:

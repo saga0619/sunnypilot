@@ -1,5 +1,5 @@
 import cereal.messaging as messaging
-from cereal import car
+from cereal import car, custom
 from panda import Panda
 from openpilot.common.params import Params
 from openpilot.selfdrive.car.sunnypilot.fingerprinting import can_fingerprint, get_one_can
@@ -298,6 +298,16 @@ class CarInterface(CarInterfaceBase):
 
     if self.CS.params_list.hyundai_radar_tracks_available and not self.CS.params_list.hyundai_radar_tracks_available_cache:
       events.add(car.CarEvent.EventName.hyundaiRadarTracksAvailable)
+
+    # Handle drive mode changes by hkg drive mode button
+    if self.CS.hyundai_driving_mode:
+      if self.CS.accel_profile != self.CS.accel_profile_prev:
+        if self.CS.accel_profile == custom.AccelPersonalityType.normal:
+          events.add(car.CarEvent.EventName.accelProfileNormal)
+        elif self.CS.accel_profile == custom.AccelPersonalityType.eco:
+          events.add(car.CarEvent.EventName.accelProfileEco)
+        elif self.CS.accel_profile == custom.AccelPersonalityType.sport:
+          events.add(car.CarEvent.EventName.accelProfileSport)
 
     ret.customStockLong = self.update_custom_stock_long()
 

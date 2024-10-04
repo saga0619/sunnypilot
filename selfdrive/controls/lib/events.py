@@ -617,6 +617,28 @@ EVENTS: dict[int, dict[str, Alert | AlertCallbackType]] = {
       Priority.LOW, VisualAlert.steerRequired, AudibleAlert.promptRepeat, 2.),
   },
 
+  EventName.accelProfileEco: {
+    ET.WARNING: Alert(
+      "Acceleration Profile - ECO",
+      "",
+      AlertStatus.normal, AlertSize.small,
+      Priority.LOW, VisualAlert.none, AudibleAlert.none, .1),
+  },
+  EventName.accelProfileNormal: {
+    ET.WARNING: Alert(
+      "Acceleration Profile - NORMAL",
+      "",
+      AlertStatus.normal, AlertSize.small,
+      Priority.LOW, VisualAlert.none, AudibleAlert.none, .1),
+  },
+    EventName.accelProfileSport: {
+    ET.WARNING: Alert(
+      "Acceleration Profile - SPORT",
+      "",
+      AlertStatus.normal, AlertSize.small,
+      Priority.LOW, VisualAlert.none, AudibleAlert.none, .1),
+  },
+
   # Thrown when the fan is driven at >50% but is not rotating
   EventName.fanMalfunction: {
     ET.PERMANENT: NormalPermanentAlert("Fan Malfunction", "Likely Hardware Issue"),

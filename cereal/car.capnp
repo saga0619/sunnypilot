@@ -138,6 +138,9 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     speedLimitConfirmed @140;
     torqueNNLoad @141;
     hyundaiRadarTracksAvailable @142;
+    accelProfileEco @143;
+    accelProfileNormal @144;
+    accelProfileSport @145;
 
     radarCanErrorDEPRECATED @15;
     communityFeatureDisallowedDEPRECATED @62;
